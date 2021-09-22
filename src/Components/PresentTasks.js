@@ -1,25 +1,21 @@
 import { useState, useEffect } from "react";
+import deleteTask from "../functions/deleteTask";
 
-const PresentTasks = ({ taskAdded }) => {
+const PresentTasks = ({ taskAdded, setTaskAdded }) => {
   const [tasks, addTask] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
-  const deleteTask = () => {
-    console.log("delete");
-  };
 // get the data from local storage and store it in state
   useEffect(() => {
     const storage = JSON.parse(localStorage.getItem("tasks"));
     addTask(storage); 
     return () => {
-      console.log("hi");
+      console.log("cancelled");
     };
   }, [taskAdded, isChecked]);
   // add checked task to the state
   const handleChange = (key, value) => {
     const storage = JSON.parse(localStorage.getItem("tasks"));
-    const element = storage.filter((ele) => {
-      return ele.id === Number(key);
-    });
+    const element = storage.filter((ele) => ele.id === Number(key));
     // save checked tasks in local storage
     setIsChecked(!isChecked);
     element[0].checked = value;
@@ -38,7 +34,9 @@ const PresentTasks = ({ taskAdded }) => {
               onChange={(e) => handleChange(e.target.id, e.target.checked)}
             />
           </span>
-          <span className="icon" onClick={deleteTask}>
+          <span className="icon" onClick={() => {
+              deleteTask(ele.id, taskAdded, setTaskAdded)
+          }}>
             <i className="fas fa-trash"></i>
           </span>
         </li>

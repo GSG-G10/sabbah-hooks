@@ -1,17 +1,31 @@
 import { useState, useEffect } from "react";
 import deleteTask from "../functions/deleteTask";
 
-const PresentTasks = ({ taskAdded, setTaskAdded }) => {
+const PresentTasks = ({ taskAdded, setTaskAdded, type, active, setActive }) => {
   const [tasks, addTask] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
 // get the data from local storage and store it in state
   useEffect(() => {
     const storage = JSON.parse(localStorage.getItem("tasks"));
-    addTask(storage); 
+    if (storage){
+        setActive('active')
+        switch(type) {
+            case 'todo':
+                 const todos = storage.filter(ele => ele.checked === false) 
+                 addTask(todos)
+                 break;
+            case 'done':
+                const done = storage.filter(ele => ele.checked === true) 
+                addTask(done) 
+                break;
+            default: 
+            addTask(storage); 
+        }
+    }else addTask(storage)
     return () => {
       console.log("cancelled");
     };
-  }, [taskAdded, isChecked]);
+  }, [taskAdded, isChecked, type, setActive]);
   // add checked task to the state
   const handleChange = (key, value) => {
     const storage = JSON.parse(localStorage.getItem("tasks"));
@@ -24,7 +38,7 @@ const PresentTasks = ({ taskAdded, setTaskAdded }) => {
   if (tasks) { // present elements that brought from local storage
     return tasks.map((ele) => {
       return (
-        <li>
+        <li key={ele.id}>
           {ele.task}
           <span>
             <input

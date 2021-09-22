@@ -2,19 +2,18 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams
+  Link
 } from "react-router-dom";
 import { useState } from "react";
 import './App.css';
 import PresentTasks from "./Components/PresentTasks";
 import Form from "./Components/Form";
-
+import Footer from "./Components/Footer";
 
 
 function App() {
   const [taskAdded, setTaskAdded] = useState(false) // state for rerendering data
+  const [active, setActive] = useState(false) 
   return (
     <Router>
     <div className="App">
@@ -26,17 +25,26 @@ function App() {
       <li> <Link to="done"> Done </Link> </li>
     </ul>
     <ul className="todoList" id="todoList">
-    <PresentTasks taskAdded= {taskAdded} setTaskAdded = {setTaskAdded} />
+    <Switch>
+      <Route exact path='/'>
+      <PresentTasks type='all' taskAdded= {taskAdded} setTaskAdded = {setTaskAdded} active={active} setActive={setActive} />
+      </Route>
+
+      <Route exact path='/todo'>
+      <PresentTasks type='todo' taskAdded= {taskAdded} setTaskAdded = {setTaskAdded} active={active} setActive={setActive} />
+      </Route>
+
+      <Route exact path='/done'>
+      <PresentTasks type='done' taskAdded= {taskAdded} setTaskAdded = {setTaskAdded} active={active} setActive={setActive} />
+      </Route>
+      <Route>
+        <p>
+          Not Found Path
+        </p>
+      </Route>
+      </Switch>
     </ul>
-    <div className="footer">
-      <p className="para">
-        As the saying goes, <br /> instead of waiting, why not do it now?
-      </p>
-      <button id="clear" onClick= {() => {
-        localStorage.removeItem('tasks')
-        setTaskAdded(!taskAdded)
-      }}>Clear All</button>
-    </div>
+    <Footer taskAdded= {taskAdded} setTaskAdded = {setTaskAdded}  active={active} setActive={setActive}/>
     </div>
     </Router>
   );

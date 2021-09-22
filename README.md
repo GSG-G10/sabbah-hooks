@@ -1,5 +1,7 @@
 # Todo App
 
+<a href='https://condescending-fermat-0d7d29.netlify.app/'> Live Link >></a>
+
 ## Project info:
 
 - This app provides ways for user to organize his tasks in the day, help him in time management, and give him a feeling of achievement.

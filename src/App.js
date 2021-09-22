@@ -6,23 +6,27 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom";
+import { useState } from "react";
 import './App.css';
 import PresentTasks from "./Components/PresentTasks";
 import Form from "./Components/Form";
 
+
+
 function App() {
+  const [taskAdded, setTaskAdded] = useState(false)
   return (
     <Router>
     <div className="App">
      <header>Todo List</header>
-     <Form />
+     <Form taskAdded= {taskAdded} setTaskAdded = {setTaskAdded}/>
     <ul className="tags">
       <li> <Link to="/"> All </Link> </li>
       <li> <Link to="/todo"> To Do </Link> </li>
       <li> <Link to="done"> Done </Link> </li>
     </ul>
     <ul className="todoList" id="todoList">
-      <PresentTasks />
+    <PresentTasks taskAdded= {taskAdded} setTaskAdded = {setTaskAdded} />
     </ul>
     <div className="footer">
       <p className="para">

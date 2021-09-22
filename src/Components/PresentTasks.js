@@ -9,15 +9,13 @@ const PresentTasks = ({ taskAdded, setTaskAdded }) => {
     const storage = JSON.parse(localStorage.getItem("tasks"));
     addTask(storage); 
     return () => {
-      console.log("hi");
+      console.log("cancelled");
     };
   }, [taskAdded, isChecked]);
   // add checked task to the state
   const handleChange = (key, value) => {
     const storage = JSON.parse(localStorage.getItem("tasks"));
-    const element = storage.filter((ele) => {
-      return ele.id === Number(key);
-    });
+    const element = storage.filter((ele) => ele.id === Number(key));
     // save checked tasks in local storage
     setIsChecked(!isChecked);
     element[0].checked = value;
@@ -36,9 +34,7 @@ const PresentTasks = ({ taskAdded, setTaskAdded }) => {
               onChange={(e) => handleChange(e.target.id, e.target.checked)}
             />
           </span>
-          <span className="icon" onClick={(e) => {
-              console.log(e);
-              console.log(ele.id);
+          <span className="icon" onClick={() => {
               deleteTask(ele.id, taskAdded, setTaskAdded)
           }}>
             <i className="fas fa-trash"></i>

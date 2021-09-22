@@ -1,7 +1,7 @@
 import { useState } from "react";
-import addTask from "./AddTask";
+import addTask from "../functions/AddTask";
 
-const Form = ({ taskAdded, setTaskAdded }) => {
+const Form = ({ taskAdded, setTaskAdded }) => { 
     // state to store input value
   const [value, setValue] = useState("");
   const updateVal = (e) => {

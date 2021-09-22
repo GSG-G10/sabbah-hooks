@@ -32,7 +32,10 @@ function App() {
       <p className="para">
         As the saying goes, <br /> instead of waiting, why not do it now?
       </p>
-      <button id="clear">Clear All</button>
+      <button id="clear" onClick= {() => {
+        localStorage.removeItem('tasks')
+        setTaskAdded(!taskAdded)
+      }}>Clear All</button>
     </div>
     </div>
     </Router>

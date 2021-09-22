@@ -1,6 +1,9 @@
 const deleteTask = (id, taskAdded, setTaskAdded) => {
-    console.log(id);
     const storage = JSON.parse(localStorage.getItem('tasks'));
+    if(storage.length <= 1){
+        setTaskAdded(!taskAdded)
+        return localStorage.removeItem('tasks')
+    }
     const element = storage.filter(ele => ele.id === Number(id));
     const index = storage.indexOf(element[0]);
     if (index > -1) {

@@ -2,11 +2,11 @@ import { useState } from "react";
 import addTask from "./AddTask";
 
 const Form = ({ taskAdded, setTaskAdded }) => {
+    // state to store input value
   const [value, setValue] = useState("");
   const updateVal = (e) => {
     setValue(e.target.value);
   };
-
   return (
     <form className="inputs">
       <input

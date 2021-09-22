@@ -14,7 +14,7 @@ import Form from "./Components/Form";
 
 
 function App() {
-  const [taskAdded, setTaskAdded] = useState(false)
+  const [taskAdded, setTaskAdded] = useState(false) // state for rerendering data
   return (
     <Router>
     <div className="App">
